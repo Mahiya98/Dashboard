@@ -1,122 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Production Dashboard</title>
-<link rel="stylesheet" href="style.css" />
-<style>
-  /* 🏠 Back to Hub Button Styles */
-  .back-to-hub {
-    position: fixed;
-    top: 14px;
-    left: 14px;
-    z-index: 9999;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
-    color: #fff;
-    padding: 8px 18px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .back-to-hub:hover {
-    transform: translateX(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    background: linear-gradient(135deg, #2563eb, #06b6d4);
-  }
-  /* Push topbar down on mobile so it doesn't overlap with the back button */
-  @media (max-width: 600px) {
-    .back-to-hub {
-      top: 8px;
-      left: 8px;
-      padding: 6px 14px;
-      font-size: 12px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
     }
-    .topbar { margin-top: 36px; }
-  }
-  /* Push topbar slightly down on laptop too so button doesn't overlap */
-  @media (min-width: 601px) {
-    body > header.topbar { padding-left: 140px; }
-  }
-</style>
+    .header { text-align: center; margin-bottom: 40px; animation: fadeDown 0.6s ease; }
+    .header h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+    .header p { font-size: clamp(14px, 2.5vw, 18px); opacity: .9; }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+      animation: fadeUp 0.6s ease;
+    }
+    .tile {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1f2d4a;
+      border-radius: 18px;
+      padding: 36px 28px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .tile:hover, .tile:active {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0,0,0,.3);
+    }
+    .tile-icon { font-size: 64px; line-height: 1; }
+    .tile-title { font-size: 22px; font-weight: 700; color: #1e3a8a; }
+    .tile-desc { font-size: 14px; color: #6b7280; line-height: 1.5; }
+    .tile-btn {
+      margin-top: 8px;
+      padding: 10px 28px;
+      background: #1e3a8a;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .tile:hover .tile-btn { background: #2563eb; }
+    .tile.green .tile-title { color: #15803d; }
+    .tile.green .tile-btn { background: #15803d; }
+    .tile.green:hover .tile-btn { background: #16a34a; }
+    .footer { margin-top: 40px; font-size: 12px; opacity: .8; text-align: center; }
+
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 600px) {
+      .tile { padding: 28px 20px; }
+      .tile-icon { font-size: 52px; }
+      .tile-title { font-size: 19px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="header">
+    <h1>📊 Dashboard Hub</h1>
+    <p>Select a report to view</p>
+  </div>
 
-  <!-- 🏠 Back to Hub Button -->
-  <a href="https://mahiya98.github.io/dashboard-hub/" class="back-to-hub" title="Back to Dashboard Hub">
-    ← Back to Hub
-  </a>
+  <div class="tiles">
+    <!-- TILE 1: SUMMARY REPORT -->
+    <a href="https://mahiya98.github.io/summary/" class="tile" target="_self">
+      <div class="tile-icon">📈</div>
+      <div class="tile-title">Summary Report</div>
+      <div class="tile-desc">View consolidated KPIs and high-level performance metrics</div>
+      <div class="tile-btn">Open Summary →</div>
+    </a>
 
-  <header class="topbar">
-    <h1>📊 Production Dashboard</h1>
-    <span id="status" class="status">Loading…</span>
-  </header>
+    <!-- TILE 2: ERP MODULE -->
+    <a href="https://mahiya98.github.io/ERP-MODULE/" class="tile green" target="_self">
+      <div class="tile-icon">🏭</div>
+      <div class="tile-title">ERP Module</div>
+      <div class="tile-desc">Detailed mill-wise production data with filters & Excel export</div>
+      <div class="tile-btn">Open ERP →</div>
+    </a>
+  </div>
 
-  <!-- 4 FILTERS + DATE RANGE -->
-  <section class="filters">
-    <div class="field" id="sbuField">
-      <label>SBU</label>
-      <select id="filterSBU"><option value="">Select All</option></select>
-    </div>
-    <div class="field">
-      <label>Shop Floor</label>
-      <select id="filterShop"><option value="">Select All</option></select>
-    </div>
-    <div class="field">
-      <label>Mill Name</label>
-      <select id="filterMachine"><option value="">Select All</option></select>
-    </div>
-    <div class="field">
-      <label>From Date</label>
-      <input type="date" id="fromDate" />
-    </div>
-    <div class="field">
-      <label>To Date</label>
-      <input type="date" id="toDate" />
-    </div>
-    <div class="actions">
-      <button id="resetBtn" class="btn btn-grey">⟳ Reset</button>
-      <button id="excelBtn" class="btn btn-green">⬇ Excel</button>
-    </div>
-  </section>
-
-  <!-- SUMMARY CARDS -->
-  <section class="cards">
-    <div class="card"><div class="card-label">Total TGT O/P</div><div class="card-value" id="cTgt">0</div></div>
-    <div class="card"><div class="card-label">Total Actual O/P</div><div class="card-value" id="cActual">0</div></div>
-    <div class="card"><div class="card-label">Total Good Production</div><div class="card-value" id="cGood">0</div></div>
-    <div class="card"><div class="card-label">Avg Achiv %</div><div class="card-value" id="cAchiv">0.0%</div></div>
-    <div class="card"><div class="card-label">Avg OEE %</div><div class="card-value" id="cOee">0.0%</div></div>
-    <div class="card"><div class="card-label">Avg NPT %</div><div class="card-value" id="cNpt">0.0%</div></div>
-    <div class="card"><div class="card-label">Days</div><div class="card-value" id="cCount">0</div></div>
-  </section>
-
-  <!-- DATA TABLE — 8 COLUMNS, ONE ROW PER UNIQUE DATE -->
-  <section class="table-wrap">
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Shift Target (MT)</th>
-          <th>Actual Output (MT)</th>
-          <th>Good Production</th>
-          <th>Achiv%</th>
-          <th>Wastage%</th>
-          <th>OEE%</th>
-          <th>NPT%</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
-
-  <script src="app.js"></script>
+  <div class="footer">
+    Works on 💻 Laptop and 📱 Mobile · Share this URL with anyone
+  </div>
 </body>
 </html>
