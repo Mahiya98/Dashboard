@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeDown 0.6s ease;
+    }
+    .header h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+    .header p {
+      font-size: clamp(14px, 2.5vw, 18px);
+      opacity: .9;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+      animation: fadeUp 0.6s ease;
+    }
+    .tile {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1f2d4a;
+      border-radius: 18px;
+      padding: 36px 28px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .tile:hover, .tile:active {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0,0,0,.3);
+    }
+    .tile-icon {
+      font-size: 64px;
+      line-height: 1;
+    }
+    .tile-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+    .tile-desc {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .tile-btn {
+      margin-top: 8px;
+      padding: 10px 28px;
+      background: #1e3a8a;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .tile:hover .tile-btn { background: #2563eb; }
+    .tile.green .tile-title { color: #15803d; }
+    .tile.green .tile-btn { background: #15803d; }
+    .tile.green:hover .tile-btn { background: #16a34a; }
+    .footer {
+      margin-top: 40px;
+      font-size: 12px;
+      opacity: .8;
+      text-align: center;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .tile { padding: 28px 20px; }
+      .tile-icon { font-size: 52px; }
+      .tile-title { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 Dashboard Hub</h1>
+    <p>Select a report to view</p>
+  </div>
+
+  <div class="tiles">
+    <!-- TILE 1: SUMMARY REPORT -->
+    <a href="https://mahiya98.github.io/summary/" class="tile" target="_self">
+      <div class="tile-icon">📈</div>
+      <div class="tile-title">Summary Report</div>
+      <div class="tile-desc">View consolidated KPIs and high-level performance metrics</div>
+      <div class="tile-btn">Open Summary →</div>
+    </a>
+
+    <!-- TILE 2: PRODUCTION REPORT (ERP Module) -->
+    <a href="https://mahiya98.github.io/ERP-MODULE/" class="tile green" target="_self">
+      <div class="tile-icon">🏭</div>
+      <div class="tile-title">Production Report</div>
+      <div class="tile-desc">Detailed mill-wise production data with filters & Excel export</div>
+      <div class="tile-btn">Open Production →</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    Works on 💻 Laptop and 📱 Mobile · Share this URL with anyone
+  </div>
+</body>
+</html>
