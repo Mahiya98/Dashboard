@@ -1,9 +1,12 @@
-<!-- 🏠 Back to Hub Button -->
-<a href="https://mahiya98.github.io/dashboard-hub/" class="back-to-hub" title="Back to Dashboard Hub">
-  ← Back to Hub
-</a>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Production Dashboard</title>
+<link rel="stylesheet" href="style.css" />
 <style>
+  /* 🏠 Back to Hub Button Styles */
   .back-to-hub {
     position: fixed;
     top: 14px;
@@ -28,6 +31,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     background: linear-gradient(135deg, #2563eb, #06b6d4);
   }
+  /* Push topbar down on mobile so it doesn't overlap with the back button */
   @media (max-width: 600px) {
     .back-to-hub {
       top: 8px;
@@ -35,5 +39,84 @@
       padding: 6px 14px;
       font-size: 12px;
     }
+    .topbar { margin-top: 36px; }
+  }
+  /* Push topbar slightly down on laptop too so button doesn't overlap */
+  @media (min-width: 601px) {
+    body > header.topbar { padding-left: 140px; }
   }
 </style>
+</head>
+<body>
+
+  <!-- 🏠 Back to Hub Button -->
+  <a href="https://mahiya98.github.io/dashboard-hub/" class="back-to-hub" title="Back to Dashboard Hub">
+    ← Back to Hub
+  </a>
+
+  <header class="topbar">
+    <h1>📊 Production Dashboard</h1>
+    <span id="status" class="status">Loading…</span>
+  </header>
+
+  <!-- 4 FILTERS + DATE RANGE -->
+  <section class="filters">
+    <div class="field" id="sbuField">
+      <label>SBU</label>
+      <select id="filterSBU"><option value="">Select All</option></select>
+    </div>
+    <div class="field">
+      <label>Shop Floor</label>
+      <select id="filterShop"><option value="">Select All</option></select>
+    </div>
+    <div class="field">
+      <label>Mill Name</label>
+      <select id="filterMachine"><option value="">Select All</option></select>
+    </div>
+    <div class="field">
+      <label>From Date</label>
+      <input type="date" id="fromDate" />
+    </div>
+    <div class="field">
+      <label>To Date</label>
+      <input type="date" id="toDate" />
+    </div>
+    <div class="actions">
+      <button id="resetBtn" class="btn btn-grey">⟳ Reset</button>
+      <button id="excelBtn" class="btn btn-green">⬇ Excel</button>
+    </div>
+  </section>
+
+  <!-- SUMMARY CARDS -->
+  <section class="cards">
+    <div class="card"><div class="card-label">Total TGT O/P</div><div class="card-value" id="cTgt">0</div></div>
+    <div class="card"><div class="card-label">Total Actual O/P</div><div class="card-value" id="cActual">0</div></div>
+    <div class="card"><div class="card-label">Total Good Production</div><div class="card-value" id="cGood">0</div></div>
+    <div class="card"><div class="card-label">Avg Achiv %</div><div class="card-value" id="cAchiv">0.0%</div></div>
+    <div class="card"><div class="card-label">Avg OEE %</div><div class="card-value" id="cOee">0.0%</div></div>
+    <div class="card"><div class="card-label">Avg NPT %</div><div class="card-value" id="cNpt">0.0%</div></div>
+    <div class="card"><div class="card-label">Days</div><div class="card-value" id="cCount">0</div></div>
+  </section>
+
+  <!-- DATA TABLE — 8 COLUMNS, ONE ROW PER UNIQUE DATE -->
+  <section class="table-wrap">
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Shift Target (MT)</th>
+          <th>Actual Output (MT)</th>
+          <th>Good Production</th>
+          <th>Achiv%</th>
+          <th>Wastage%</th>
+          <th>OEE%</th>
+          <th>NPT%</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
